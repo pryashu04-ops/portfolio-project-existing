@@ -1,0 +1,39 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome against localhost",
+            "url": "http://localhost:8000",
+            "webRoot": "${workspaceFolder}",
+            "preLaunchTask": "Python: HTTP Server"
+        },
+        {
+            "name": "Python: HTTP Server",
+            "type": "python",
+            "request": "launch",
+            "module": "http.server",
+            "args": ["8000"],
+            "justMyCode": true,
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Python: Bank Account System",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/bank.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Python: Restaurant Order App",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/resturant order app.py",
+            "console": "integratedTerminal"
+        }
+    ]
+}
