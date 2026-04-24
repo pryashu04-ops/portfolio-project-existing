@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bank Account System | Secure Banking</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    body.dark-mode {
+      background: linear-gradient(135deg, #0a0a0c 0%, #1a1a2e 100%);
+      color: #e0e0e0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      color: white;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    /* Dark Mode Toggle */
+    .dark-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      z-index: 100;
+    }
+
+    .dark-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.1);
+    }
+
+    /* Main Content Grid */
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Card Base Style */
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(10px);
+    }
+
+    body.dark-mode .card {
+      background: rgba(30, 30, 46, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #1e3c72;
+    }
+
+    body.dark-mode .card h2 {
+      color: #64b5f6;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode .form-group input,
+    body.dark-mode .form-group select {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #e0e0e0;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #1e3c72;
+      box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+    }
+
+    body.dark-mode .form-group input:focus,
+    body.dark-mode .form-group select:focus {
+      border-color: #64b5f6;
+      box-shadow: 0 0 0 3px rgba(100, 181, 246, 0.1);
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      color: white;
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(30, 60, 114, 0.3);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-secondary {
+      background: #f0f0f0;
+      color: #333;
+      margin-right: 10px;
+    }
+
+    body.dark-mode .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #e0e0e0;
+    }
+
+    .btn-secondary:hover {
+      background: #e0e0e0;
+    }
+
+    .btn-danger {
+      background: #ff4757;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #ff3838;
+      transform: translateY(-2px);
+    }
+
+    .btn-success {
+      background: #2ecc71;
+      color: white;
+    }
+
+    .btn-success:hover {
+      background: #27ae60;
+    }
+
+    /* Info Box */
+    .info-box {
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      color: white;
+      padding: 25px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    body.dark-mode .info-box {
+      background: rgba(100, 181, 246, 0.1);
+      border: 2px solid rgba(100, 181, 246, 0.2);
+    }
+
+    .info-box h3 {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 8px;
+    }
+
+    .info-box .value {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    /* Button Group */
+    .btn-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .btn-group.full {
+      grid-template-columns: 1fr;
+    }
+
+    /* Transaction History */
+    .history-section {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .history-item {
+      background: #f5f5f5;
+      padding: 12px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-left: 4px solid #2ecc71;
+    }
+
+    body.dark-mode .history-item {
+      background: rgba(255, 255, 255, 0.05);
+      border-left-color: #64b5f6;
+    }
+
+    .history-item.withdraw {
+      border-left-color: #ff4757;
+    }
+
+    .history-item-text {
+      flex: 1;
+    }
+
+    .history-item-text h4 {
+      margin-bottom: 4px;
+      font-size: 0.95rem;
+    }
+
+    .history-item-text p {
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+
+    .history-item-amount {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .history-item-amount.withdraw {
+      color: #ff4757;
+    }
+
+    .history-item-amount.deposit {
+      color: #2ecc71;
+    }
+
+    .empty-history {
+      text-align: center;
+      padding: 40px 20px;
+      color: #999;
+    }
+
+    /* Alert/Status Messages */
+    .alert {
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      display: none;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .alert.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .alert.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .alert.info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+    }
+
+    body.dark-mode .alert.success {
+      background: rgba(46, 204, 113, 0.2);
+      color: #2ecc71;
+      border-color: rgba(46, 204, 113, 0.3);
+    }
+
+    body.dark-mode .alert.error {
+      background: rgba(255, 71, 87, 0.2);
+      color: #ff4757;
+      border-color: rgba(255, 71, 87, 0.3);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-content {
+      background-color: white;
+      margin: 5% auto;
+      padding: 40px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: slideDown 0.3s ease;
+    }
+
+    body.dark-mode .modal-content {
+      background-color: #1e1e2e;
+      color: #e0e0e0;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .close-btn {
+      color: #999;
+      float: right;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .close-btn:hover {
+      color: #ff4757;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    body.dark-mode ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #1e3c72;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2a5298;
+    }
+
+    /* Login Screen */
+    .login-container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Account Status */
+    .account-status {
+      background: rgba(100, 181, 246, 0.1);
+      border: 2px solid rgba(100, 181, 246, 0.3);
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    body.dark-mode .account-status {
+      background: rgba(100, 181, 246, 0.15);
+    }
+
+    .account-status p {
+      margin: 5px 0;
+      font-size: 0.95rem;
+    }
+
+    .account-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #1e3c72;
+    }
+
+    body.dark-mode .account-name {
+      color: #64b5f6;
+    }
+  </style>
+</head>
+<body>
+  <!-- Dark Mode Toggle -->
+  <button class="dark-toggle" id="darkToggle" title="Toggle Dark Mode">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1><i class="fas fa-university"></i> Bank Account System</h1>
+      <p>Secure Banking with PIN Protection</p>
+    </div>
+
+    <!-- Login Screen -->
+    <div id="loginScreen" class="card login-container">
+      <h2><i class="fas fa-lock"></i> Login to Your Account</h2>
+
+      <div class="alert" id="loginAlert"></div>
+
+      <div class="form-group">
+        <label for="loginName">Account Holder Name</label>
+        <input type="text" id="loginName" placeholder="Enter your name" />
+      </div>
+
+      <div class="form-group">
+        <label for="loginPin">4-Digit PIN</label>
+        <input type="password" id="loginPin" placeholder="Enter your PIN" maxlength="4" />
+      </div>
+
+      <button class="btn btn-primary" onclick="login()">
+        <i class="fas fa-sign-in-alt"></i> Login
+      </button>
+
+      <div style="margin-top: 25px; text-align: center; font-size: 0.95rem; opacity: 0.7;">
+        <p>Demo Credentials:</p>
+        <p>Name: <strong>Yashaswini</strong></p>
+        <p>PIN: <strong>1234</strong></p>
+      </div>
+    </div>
+
+    <!-- Banking Screen -->
+    <div id="bankingScreen" class="hidden">
+      <!-- Top Section with Account Info -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;">
+        <!-- Account Info Card -->
+        <div class="card">
+          <h2><i class="fas fa-user"></i> Account Info</h2>
+
+          <div class="account-status">
+            <p>Account Holder</p>
+            <p class="account-name" id="accountName">-</p>
+          </div>
+
+          <div class="info-box">
+            <h3>Current Balance</h3>
+            <div class="value" id="balanceDisplay">₹0</div>
+          </div>
+
+          <button class="btn btn-danger" onclick="logout()" style="width: 100%; margin-top: 20px;">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </div>
+
+        <!-- Quick Actions Card -->
+        <div class="card">
+          <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+
+          <div class="alert" id="actionAlert"></div>
+
+          <!-- Deposit Section -->
+          <div style="margin-bottom: 25px;">
+            <h3 style="font-size: 1rem; margin-bottom: 12px; color: #2ecc71;">
+              <i class="fas fa-arrow-down"></i> Deposit
+            </h3>
+            <div class="form-group" style="margin-bottom: 10px;">
+              <input type="number" id="depositAmount" placeholder="Enter amount" min="1" />
+            </div>
+            <button class="btn btn-success" onclick="deposit()" style="width: 100%;">
+              <i class="fas fa-money-bill"></i> Deposit
+            </button>
+          </div>
+
+          <!-- Withdraw Section -->
+          <div style="border-top: 2px solid #e0e0e0; padding-top: 25px;">
+            <h3 style="font-size: 1rem; margin-bottom: 12px; color: #ff4757;">
+              <i class="fas fa-arrow-up"></i> Withdraw
+            </h3>
+            <div class="form-group" style="margin-bottom: 10px;">
+              <input type="number" id="withdrawAmount" placeholder="Enter amount" min="1" />
+            </div>
+            <button class="btn btn-primary" onclick="withdraw()" style="width: 100%;">
+              <i class="fas fa-credit-card"></i> Withdraw
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transaction History Card -->
+      <div class="card">
+        <h2><i class="fas fa-history"></i> Transaction History</h2>
+        <div class="history-section" id="historyList">
+          <div class="empty-history">No transactions yet</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Demo Account
+    const demoAccount = {
+      name: "Yashaswini",
+      pin: "1234",
+      balance: 5000,
+      history: ["Opened account with ₹5000"]
+    };
+
+    let currentAccount = null;
+
+    // Initialize
+    function init() {
+      setupDarkMode();
+    }
+
+    // Login
+    function login() {
+      const name = document.getElementById('loginName').value.trim();
+      const pin = document.getElementById('loginPin').value;
+      const loginAlert = document.getElementById('loginAlert');
+
+      if (!name || !pin) {
+        showAlert(loginAlert, 'Please enter name and PIN', 'error');
+        return;
+      }
+
+      if (name.toLowerCase() === demoAccount.name.toLowerCase() && pin === demoAccount.pin) {
+        currentAccount = { ...demoAccount };
+        showAlert(loginAlert, '✓ Login successful!', 'success');
+        setTimeout(() => {
+          document.getElementById('loginScreen').classList.add('hidden');
+          document.getElementById('bankingScreen').classList.remove('hidden');
+          updateDisplay();
+        }, 500);
+      } else {
+        showAlert(loginAlert, '✗ Invalid credentials', 'error');
+        document.getElementById('loginPin').value = '';
+      }
+    }
+
+    // Logout
+    function logout() {
+      if (confirm('Are you sure you want to logout?')) {
+        currentAccount = null;
+        document.getElementById('loginScreen').classList.remove('hidden');
+        document.getElementById('bankingScreen').classList.add('hidden');
+        document.getElementById('loginName').value = '';
+        document.getElementById('loginPin').value = '';
+        document.getElementById('loginAlert').style.display = 'none';
+      }
+    }
+
+    // Deposit
+    function deposit() {
+      const amount = parseFloat(document.getElementById('depositAmount').value);
+      const actionAlert = document.getElementById('actionAlert');
+
+      if (isNaN(amount) || amount <= 0) {
+        showAlert(actionAlert, 'Please enter a valid amount', 'error');
+        return;
+      }
+
+      currentAccount.balance += amount;
+      currentAccount.history.push(`Deposited ₹${amount}`);
+      document.getElementById('depositAmount').value = '';
+      showAlert(actionAlert, `✓ Deposit successful! ₹${amount} added to your account.`, 'success');
+      updateDisplay();
+    }
+
+    // Withdraw
+    function withdraw() {
+      const amount = parseFloat(document.getElementById('withdrawAmount').value);
+      const actionAlert = document.getElementById('actionAlert');
+
+      if (isNaN(amount) || amount <= 0) {
+        showAlert(actionAlert, 'Please enter a valid amount', 'error');
+        return;
+      }
+
+      if (amount > currentAccount.balance) {
+        showAlert(actionAlert, '✗ Insufficient balance!', 'error');
+        return;
+      }
+
+      currentAccount.balance -= amount;
+      currentAccount.history.push(`Withdrew ₹${amount}`);
+      document.getElementById('withdrawAmount').value = '';
+      showAlert(actionAlert, `✓ Withdrawal successful! ₹${amount} deducted from your account.`, 'success');
+      updateDisplay();
+    }
+
+    // Update Display
+    function updateDisplay() {
+      document.getElementById('accountName').textContent = currentAccount.name;
+      document.getElementById('balanceDisplay').textContent = `₹${currentAccount.balance.toFixed(2)}`;
+      updateHistory();
+    }
+
+    // Update History
+    function updateHistory() {
+      const historyList = document.getElementById('historyList');
+
+      if (currentAccount.history.length === 0) {
+        historyList.innerHTML = '<div class="empty-history">No transactions yet</div>';
+        return;
+      }
+
+      historyList.innerHTML = currentAccount.history
+        .slice()
+        .reverse()
+        .map((transaction, index) => {
+          const isWithdraw = transaction.includes('Withdrew');
+          const amount = transaction.match(/₹\d+/)[0];
+
+          return `
+            <div class="history-item ${isWithdraw ? 'withdraw' : ''}">
+              <div class="history-item-text">
+                <h4>${transaction}</h4>
+                <p>#${currentAccount.history.length - index}</p>
+              </div>
+              <div class="history-item-amount ${isWithdraw ? 'withdraw' : 'deposit'}">
+                ${isWithdraw ? '-' : '+'}${amount}
+              </div>
+            </div>
+          `;
+        })
+        .join('');
+    }
+
+    // Show Alert
+    function showAlert(element, message, type) {
+      element.textContent = message;
+      element.className = `alert ${type}`;
+      element.style.display = 'block';
+      setTimeout(() => {
+        element.style.display = 'none';
+      }, 4000);
+    }
+
+    // Dark Mode
+    function setupDarkMode() {
+      const isDark = localStorage.getItem('bankDarkMode') === 'true';
+      if (isDark) {
+        document.body.classList.add('dark-mode');
+        document.getElementById('darkToggle').innerHTML = '<i class="fas fa-sun"></i>';
+      }
+
+      document.getElementById('darkToggle').addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('bankDarkMode', isDark);
+        document.getElementById('darkToggle').innerHTML = isDark 
+          ? '<i class="fas fa-sun"></i>' 
+          : '<i class="fas fa-moon"></i>';
+      });
+    }
+
+    // Enter key support
+    document.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        if (document.getElementById('loginScreen').classList.contains('hidden')) {
+          if (e.target.id === 'depositAmount') deposit();
+          if (e.target.id === 'withdrawAmount') withdraw();
+        } else {
+          login();
+        }
+      }
+    });
+
+    // Initialize
+    init();
+  </script>
+</body>
+</html>

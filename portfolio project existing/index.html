@@ -358,7 +358,7 @@
         <a href="#chat-section" class="nav-link">Let's Chat</a>
         <a href="#projects" class="nav-link">Projects</a>
         <div class="dropdown">
-          <a href="#" class="nav-link">More <i class="fas fa-chevron-down"></i></a>
+          <a href="C:\Users\Dell\Pictures\prphoto.jpeg" class="nav-link">More <i class="fas fa-chevron-down"></i></a>
           <div class="dropdown-content">
             <a href="#services">Services</a>
             <a href="#certificates">Certificates</a>
@@ -425,11 +425,9 @@
   <section id="projects" class="reveal">
     <h2 style="font-size: 2rem;">✨ Featured Projects</h2>
     <div class="projects-grid" id="projectsGrid">
-      <div class="project-card" data-name="AI Health Chatbot"><h3>🧠 AI Health Assistant</h3><p>LLM-based medical query system + speech.</p><a href="https://github.com/pryashu04-ops/ai-healthbot" target="_blank">GitHub <i class="fab fa-github"></i></a></div>
       <div class="project-card" data-name="Portfolio 4.0"><h3>⚡ Portfolio 4.0</h3><p>Apple-inspired design, dark mode, voice agent.</p><a href="https://github.com/pryashu04-ops/portfolio" target="_blank">GitHub Repo →</a></div>
-      <div class="project-card" data-name="EcoVision AI"><h3>🌱 EcoVision AI</h3><p>Computer vision waste segregation, Flask.</p><a href="https://github.com/pryashu04-ops/ecovision" target="_blank">GitHub Repo →</a></div>
-      <div class="project-card" data-name="Bank Account System"><h3>🏦 Bank Account System</h3><p>PIN-secured banking with deposit, withdraw, transaction history.</p><a href="#" target="_blank">View Project</a></div>
-      <div class="project-card" data-name="Restaurant Order App"><h3>🍔 Restaurant Order App</h3><p>Interactive menu ordering system with cart & bill generation.</p><a href="#" target="_blank">View Project</a></div>
+      <div class="project-card" data-name="Bank Account System" data-file="bank.py"><h3>🏦 Bank Account System</h3><p>PIN-secured banking with deposit, withdraw, transaction history.</p><a href="bank-app.html" target="_blank">Open Web App</a></div>
+      <div class="project-card" data-name="Restaurant Order App" data-file="resturant order app.py"><h3>🍔 Restaurant Order App</h3><p>Interactive menu ordering system with cart & bill generation.</p><a href="restaurant-app.html" target="_blank">Open Web App</a></div>
     </div>
   </section>
 
@@ -447,9 +445,9 @@
   <section id="certificates" class="reveal">
     <h2 style="font-size: 2rem;">📜 Certificates</h2>
     <div class="certs-grid" id="certsGrid">
-      <div class="cert-card" data-name="BCA Degree"><h3>BCA (2026)</h3><p>Vidya First Grade College, Tumkur</p><button class="btn-outline viewCertBtn" data-cert="bca">View</button></div>
-      <div class="cert-card" data-name="PUC"><h3>PUC (2023)</h3><p>Gnana Priya PU College</p><button class="btn-outline viewCertBtn" data-cert="puc">View</button></div>
-      <div class="cert-card" data-name="AI Internship"><h3>AI Internship</h3><p>AI Kshetra Tech Solution, 2026</p><button class="btn-outline viewCertBtn" data-cert="intern">View</button></div>
+      
+      <div class="cert-card" data-name="DBMS"><h3>database management system</h3><p>Great learning</p><button class="btn-outline viewCertBtn" data-cert="file:///C:/Users/Dell/Desktop/portfolio-project-existing/portfolio%20project%20existing/Yashaswini%20P%20R1.pdf">View</button></div>
+      
     </div>
   </section>
 
@@ -517,6 +515,9 @@
     <div style="background:white; max-width:400px; border-radius:32px; padding:2rem; text-align:center;"><i class="fas fa-certificate fa-3x"></i><h3 id="certModalTitle">Certificate</h3><p id="certModalDesc"></p><button id="closeCertModal" class="btn">Close</button></div>
   </div>
 
+  <!-- Project Code Viewer Modal -->
+
+
   <script>
     // Hamburger menu
     const hamburger = document.getElementById('hamburger');
@@ -550,6 +551,8 @@
     document.getElementById('closeModalBtn').onclick = () => resumeModal.style.display = 'none';
     window.onclick = (e) => { if(e.target === resumeModal) resumeModal.style.display='none'; if(e.target === document.getElementById('certModal')) document.getElementById('certModal').style.display='none'; };
 
+
+
     // Download PDF
     document.getElementById('downloadResumeBtn').addEventListener('click', () => {
       const link = document.createElement('a');
@@ -577,9 +580,8 @@
     document.querySelectorAll('.viewCertBtn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const type = btn.getAttribute('data-cert');
-        if(type === 'bca') { certTitle.innerText = 'BCA Degree'; certDesc.innerText = 'Bachelor of Computer Applications, Vidya First Grade College, Tumkur University - 2026 (Distinction).'; }
-        else if(type === 'puc') { certTitle.innerText = 'PUC Certificate'; certDesc.innerText = 'Pre-University Education, Gnana Priya PU College - 2023 (First Class).'; }
-        else { certTitle.innerText = 'AI Internship'; certDesc.innerText = 'Project Intern at AI Kshetra Tech Solution, Tumkur - 2026. AI/ML excellence.'; }
+        if(type === 'DBMS') { certTitle.innerText = 'DBMS'; certDesc.innerText = 'Database management system .'; }
+        
         certModalDiv.style.display = 'flex';
       });
     });
@@ -690,8 +692,6 @@
 ABOUT: BCA student at Vidya First Grade College, Tumkur (2026). PUC from Gnana Priya PU College (2023). Currently interning at AI Kshetra Tech Solution (2026) - developing AI-integrated platforms.
 
 PROJECTS:
-- 🧠 AI Health Assistant: LLM-based medical query system with speech
-- 🌱 EcoVision AI: Computer vision for waste segregation using Flask
 - ⚡ Portfolio 4.0: Apple-inspired design with dark mode and animations
 - 🏦 Bank Account System: PIN-secured banking with deposits, withdrawals, transaction history
 - 🍔 Restaurant Order App: Interactive menu ordering with cart and bill generation
@@ -717,9 +717,8 @@ Answer questions about her portfolio, projects, skills, and experience. Be frien
       const lower = userMsg.toLowerCase();
       if(lower.includes('about') || lower.includes('who')) return "I'm Yashaswini P R, a BCA student (2026) at Vidya First Grade College interning at AI Kshetra Tech Solution. I build AI-powered web applications!";
       if(lower.includes('skill')) return "Skills: Python, AI/ML, React, JavaScript, Node.js, HTML5/CSS3, Tailwind, Express, REST APIs, SQL, and UI/UX design.";
-      if(lower.includes('project')) return "Projects: AI Health Assistant, EcoVision AI, Portfolio 4.0, Bank Account System, Restaurant Order App. Check GitHub: github.com/pryashu04-ops";
-      if(lower.includes('ai health') || lower.includes('healthbot')) return "AI Health Assistant: LLM-based medical query system with speech recognition - helping users get health information.";
-      if(lower.includes('ecovision')) return "EcoVision AI: Computer vision system for waste segregation using Flask - promoting environmental sustainability.";
+      if(lower.includes('project')) return "Projects: Portfolio 4.0, Bank Account System, Restaurant Order App. Check GitHub: github.com/pryashu04-ops";
+
       if(lower.includes('bank')) return "Bank Account System: Python app with PIN security, deposit/withdraw features, and transaction history tracking.";
       if(lower.includes('restaurant')) return "Restaurant Order App: Interactive menu system with cart management and bill generation - great for learning Python fundamentals.";
       if(lower.includes('service')) return "Services: Web Development (responsive sites & SPAs), AI Integration (chatbots & APIs), UI/UX Design (Apple-style minimalist).";
