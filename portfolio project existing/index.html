@@ -534,7 +534,7 @@
 
     // Resume modal
     const resumeModal = document.getElementById('resumeModal');
-    document.getElementById('viewResumeBtn').onclick = () => resumeModal.style.display = 'flex';
+    
     document.getElementById('closeModalBtn').onclick = () => resumeModal.style.display = 'none';
     window.onclick = (e) => { if(e.target === resumeModal) resumeModal.style.display='none'; if(e.target === document.getElementById('certModal')) document.getElementById('certModal').style.display='none'; };
 
