@@ -29,7 +29,7 @@
       color: #ececec;
     }
     /* custom cursor variations */
-    a, button, .clickable, .nav-link, .project-card, .service-card, .cert-card, .chat-send, .voice-btn, .hamburger {
+    a, button, .clickable, .nav-link, .project-card, .cert-card, .chat-send, .voice-btn, .hamburger {
       cursor: pointer;
     }
     input, textarea, .search-input {
@@ -225,13 +225,13 @@
       border-radius: 20px;
       transition: width 1s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     }
-    .projects-grid, .services-grid, .certs-grid {
+    .projects-grid,  .certs-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 2rem;
       margin-top: 2rem;
     }
-    .project-card, .service-card, .cert-card {
+    .project-card,  .cert-card {
       background: white;
       border-radius: 32px;
       padding: 1.6rem;
@@ -239,11 +239,11 @@
       border: 1px solid rgba(0,0,0,0.05);
       box-shadow: 0 6px 14px rgba(0,0,0,0.02);
     }
-    body.dark .project-card, body.dark .service-card, body.dark .cert-card {
+    body.dark .project-card, body.dark .cert-card {
       background: #18181c;
       border-color: #2c2c30;
     }
-    .project-card:hover, .service-card:hover, .cert-card:hover {
+    .project-card:hover,  .cert-card:hover {
       transform: translateY(-6px);
       box-shadow: 0 24px 36px -12px rgba(0,0,0,0.2);
     }
@@ -358,18 +358,13 @@
         <a href="#about" class="nav-link">About</a>
         <a href="#chat-section" class="nav-link">Let's Chat</a>
         <a href="#projects" class="nav-link">Projects</a>
-        <div class="dropdown">
-          <a href="C:\Users\Dell\Pictures\yashupr.jpeg" class="nav-link">More <i class="fas fa-chevron-down"></i></a>
-          <div class="dropdown-content">
-            <a href="#services">Services</a>
-            <a href="#certificates">Certificates</a>
-          </div>
-        </div>
+    
+          
+        <a href="#certificates" class="nav-link">Certificates</a>
+          
+        
         <a href="#contact" class="nav-link">Contact</a>
-        <div class="search-box">
-          <i class="fas fa-search"></i>
-          <input type="text" id="liveSearchInput" class="search-input" placeholder="search projects, services...">
-        </div>
+        
         <button class="dark-toggle" id="darkModeToggle"><i class="fas fa-moon"></i></button>
       </div>
     </div>
@@ -380,8 +375,8 @@
     <div class="hero-grid">
       <div class="hero-content">
         <h1 style="font-size: 3.3rem; font-weight: 800; letter-spacing: -1px;">Yashaswini P R</h1>
-        <p style="font-size: 1.4rem; margin-top: 0.5rem; background: linear-gradient(135deg, #4f46e5, #c2410c); background-clip: text; -webkit-background-clip: text; color: transparent;">AI Engineer & Creative Developer</p>
-        <p>BCA grad '26 | Intern @ AIKshetra | Building intelligent, beautiful web experiences.</p>
+        <p style="font-size: 1.4rem; margin-top: 0.5rem; background: linear-gradient(135deg, #4f46e5, #c2410c); background-clip: text; -webkit-background-clip: text; color: transparent;">BCA Student</p>
+        <p>BCA grad '26 | Intern @ AIkshetra | Building intelligent, beautiful web experiences.</p>
         <div class="btn-group">
       
           <button id="downloadResumeBtn" class="btn btn-outline"><i class="fas fa-download"></i>view and Download resume</button>
@@ -432,7 +427,7 @@
     </div>
   </section>
 
-  <!-- SERVICES -->
+  
   
 
   <!-- CERTIFICATES -->
@@ -440,7 +435,7 @@
     <h2 style="font-size: 2rem;">📜 Certificates</h2>
     <div class="certs-grid" id="certsGrid">
       
-      <div class="cert-card" data-name="DBMS"><h3>database management system</h3><p>Great learning</p><button class="btn-outline viewCertBtn" data-cert="c:\Users\Dell\.antigravity\Desktop\portfolio-project-existing\portfolio project existing\DBMS.pdf" data-title="DBMS" data-desc="Database management system.">View</button></div>
+      <div class="cert-card" data-name="DBMS"><h3>database management system</h3><p>Great learning</p></div>
       
     </div>
   </section>
@@ -450,7 +445,7 @@
     <h2><i class="fas fa-comment-dots"></i> Let's Chat – AI Assistant</h2>
     <div class="chat-container">
       <div class="chat-messages" id="chatMessages">
-        <div class="message bot-msg">✨ Hey! I'm Yashaswini's AI. Ask about skills, projects, or anything else!</div>
+        <div class="message bot-msg">✨ Hey! I'm Yashaswini's AI. Ask about skills, projects, about, education!</div>
       </div>
       <div class="chat-input-area" style="display: flex; gap: 12px; margin-top: 1rem;">
         <input type="text" id="chatInput" placeholder="Type a message..." style="flex:1; border-radius:40px; padding:12px;">
@@ -469,7 +464,7 @@
         <div><i class="fab fa-github"></i> github.com/pryashu04-ops</div>
         <div><i class="fab fa-linkedin"></i> /in/yashaswini-p-r</div>
         <div class="btn-group" style="margin-top: 2rem;">
-          <a href="mailto:pryashu04@gmail.com" class="btn btn-primary"><i class="fas fa-envelope"></i> Email Me</a>
+          
           <button id="copyEmailBtn" class="btn btn-outline">Copy Email</button>
         </div>
       </div>
@@ -581,7 +576,7 @@
       let hasResults = false;
       let firstMatchSection = null;
       
-      document.querySelectorAll('#projectsGrid .project-card, #servicesGrid .service-card, #certsGrid .cert-card').forEach(card => {
+      document.querySelectorAll('#projectsGrid .project-card, #certsGrid .cert-card').forEach(card => {
         const txt = card.getAttribute('data-name')?.toLowerCase() || card.innerText.toLowerCase();
         const isVisible = (term === '' || txt.includes(term));
         card.style.display = isVisible ? 'block' : 'none';
@@ -590,7 +585,7 @@
           hasResults = true;
           if (!firstMatchSection) {
             if (card.closest('#projectsGrid')) firstMatchSection = '#projects';
-            else if (card.closest('#servicesGrid')) firstMatchSection = '#services';
+          
             else if (card.closest('#certsGrid')) firstMatchSection = '#certificates';
           }
         }
@@ -605,12 +600,12 @@
       }
       
       // Make cards clickable for navigation
-      document.querySelectorAll('#projectsGrid .project-card, #servicesGrid .service-card, #certsGrid .cert-card').forEach(card => {
+      document.querySelectorAll('#projectsGrid .project-card,  #certsGrid .cert-card').forEach(card => {
         card.style.cursor = 'pointer';
         card.onclick = (e) => {
           if (e.target.tagName === 'A') return; // Don't interfere with links
           const section = card.closest('#projectsGrid') ? '#projects' : 
-                         card.closest('#servicesGrid') ? '#services' : '#certificates';
+                         card.closest('#certsGrid') ?  '#certificates':
           document.querySelector(section).scrollIntoView({ behavior: 'smooth' });
         };
       });
@@ -618,12 +613,12 @@
     searchInput.addEventListener('input', filterGlobal);
     
     // Initialize card click navigation
-    document.querySelectorAll('#projectsGrid .project-card, #servicesGrid .service-card, #certsGrid .cert-card').forEach(card => {
+    document.querySelectorAll('#projectsGrid .project-card,  #certsGrid .cert-card').forEach(card => {
       card.style.cursor = 'pointer';
       card.onclick = (e) => {
         if (e.target.tagName === 'A') return;
         const section = card.closest('#projectsGrid') ? '#projects' : 
-                       card.closest('#servicesGrid') ? '#services' : '#certificates';
+                       card.closest('#certsGrid') ?  '#certificates':
         document.querySelector(section).scrollIntoView({ behavior: 'smooth' });
       };
     });
@@ -683,9 +678,8 @@ PROJECTS:
 - 🏦 Bank Account System: PIN-secured banking with deposits, withdrawals, transaction history
 - 🍔 Restaurant Order App: Interactive menu ordering with cart and bill generation
 
-SKILLS: Python, AI/ML, JavaScript,  HTML/CSS, SQL, PHP. Passionate about building intelligent, user-friendly web applications.
+SKILLS: Python, AI/ML, JavaScript,  HTML/CSS, SQL, PHP. 
 
-SERVICES: Web Development (responsive modern websites & SPAs), AI Integration (chatbots, intelligent APIs), UI/UX Design (minimal Apple-style systems)
 
 CONTACT: pryashu04@gmail.com | GitHub: github.com/pryashu04-ops | LinkedIn: /in/yashaswini-p-r-444539314
 
@@ -708,13 +702,13 @@ Answer questions about her portfolio, projects, skills, and experience. Be frien
 
       if(lower.includes('bank')) return "Bank Account System: Python app with PIN security, deposit/withdraw features, and transaction history tracking.";
       if(lower.includes('restaurant')) return "Restaurant Order App: Interactive menu system with cart management and bill generation - great for learning Python fundamentals.";
-      if(lower.includes('service')) return "Services: Web Development (responsive sites & SPAs), AI Integration (chatbots & APIs), UI/UX Design (Apple-style minimalist).";
+      
       if(lower.includes('resume')) return "You can view/download my resume from the Home section. It shows my education, experience, and certifications.";
       if(lower.includes('intern')) return "I'm interning at AIKshetra Tech Solution, building AI-integrated platforms and full-stack applications.";
       if(lower.includes('education')) return "Education: BCA from Vidya First Grade College, Tumkur (2026) | PUC from Gnana Priya PU College (2023)";
       if(lower.includes('contact') || lower.includes('email')) return "Email: pryashu04@gmail.com | GitHub: github.com/pryashu04-ops | LinkedIn: /in/yashaswini-p-r-444539314";
       if(lower.includes('hire')) return "I'm available for freelance & full-time roles! Interested in AI, web development. Contact me: pryashu04@gmail.com";
-      return "Great question! I can tell you about my projects, skills, services, experience, or education. What interests you?";
+      return "Great question! I can tell you about my projects, skills, experience, or education. What interests you?";
     }
     
     async function handleSend() {
